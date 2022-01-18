@@ -6,8 +6,12 @@
 </head>
 <body>
     <div class="container">
+      <% if(typeof message != 'undefined' && message) { %>
+        <%= message %>
+      <%  } %>
         <div class="col-md-12">
-            <form action="/login" method="post">
+            <form action="/admin/login" method="post">
+              <!-- <form action="/api/user/login" method="post"> -->
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address</label>
                   <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
