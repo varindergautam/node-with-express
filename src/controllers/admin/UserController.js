@@ -2,11 +2,35 @@ const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { status } = require('express/lib/response');
-const saltRounds = 10; 
+const saltRounds = 10;
+
+const adminProfile = async(req, res) => {
+    const title = "Admin Profile";
+    const adminData = await User.findOne({
+        where:{
+            id: req.userData.userId
+        },
+        raw:true
+    }).catch(error => console.log(error));
+    res.render('admin/profile', {adminData, title});
+}
 
 const userLoginForm = async (req, res) => {
     const title = "Login Form";
     res.render('admin/login', {title});
+}
+
+const adminProfileUpdate = async (req, res) => {
+    console.log(req.file.path);
+    const {id} = await req.params;
+    const data = req.body;
+    data.profile_pic = req.file.path;
+    console.log(data);
+    const selector = {where:{id: id}};
+  
+    let update = await User.update(data, selector).catch(error => console.log(error));
+    console.log(update);
+    res.redirect(nodeAdminUrl + '/profile');
 }
 
 const userLogin = async (req, res) => {
@@ -110,7 +134,9 @@ module.exports = {
     userLogin,
     userSignUpForm,
     saveSignUpUser,
-    userLogout
+    userLogout,
+    adminProfile,
+    adminProfileUpdate
 }
 
 

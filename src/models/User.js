@@ -27,5 +27,10 @@ module.exports =
             type:Sequelize.INTEGER,
             allowNull:false,
             unique:false,
-        }
+        },
+        profile_pic:{
+            type:Sequelize.STRING,
+            allowNull:false,
+            unique:false,
+        },
     });

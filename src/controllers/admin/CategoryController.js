@@ -11,14 +11,20 @@ const saveCategory = async (req, res) => {
     const category =  await Category.create(
     {
         name,
-        status : 1
+        status : 1,
+        user_id : req.userData.userId
     }
     ).catch(error => console.log(error));
+    
     res.redirect(nodeAdminUrl + '/category');
 }
 
 const listCategory = async (req, res) => {
+    const userId = req.userData.userId;
     const categories = await Category.findAll({
+        where:{
+            user_id: userId
+        },
         raw:true
     }).catch(error=>console.log(error));
     const title = "Category List";
@@ -28,6 +34,7 @@ const listCategory = async (req, res) => {
 
 const editCategory = async (req, res) => {
     const {id} = await req.params;
+    const userId = req.userData.userId;
     const category = await Category.findOne({
         where:{
             id: id
@@ -36,7 +43,7 @@ const editCategory = async (req, res) => {
     }).catch(error => console.log(error));
     const title = "Edit Category";
     // console.log(category);
-    await res.render('admin/category/create_category', {category, title});
+    await res.render('admin/category/create_category', {category, title, userId});
 }
 
 const updateCategory = async (req, res) => {
@@ -44,8 +51,7 @@ const updateCategory = async (req, res) => {
     const data = req.body;
     console.log(data);
     const selector = {where:{id:id}};
-
-    const title = "Category List";
+    
     let update = await Category.update(data, selector).catch(error => console.log(error));
     console.log(update);
     res.redirect(nodeAdminUrl + '/category');

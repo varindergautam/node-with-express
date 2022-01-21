@@ -17,5 +17,10 @@ module.exports =
             type:Sequelize.INTEGER,
             allowNull:false,
             unique:false,
+        },
+        user_id:{
+            type:Sequelize.INTEGER,
+            allowNull:true,
+            unique:false,
         }
     });
