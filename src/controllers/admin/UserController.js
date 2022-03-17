@@ -1,4 +1,4 @@
-const User = require('../../models/User');
+const User = require('../../../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { status } = require('express/lib/response');
@@ -21,15 +21,17 @@ const userLoginForm = async (req, res) => {
 }
 
 const adminProfileUpdate = async (req, res) => {
-    console.log(req.file.path);
+    console.log(imagePathurl+req.file.filename);
+    var imagePath = req.file.path;
+    console.log(imagePath.replace(new RegExp(""),"/"));
     const {id} = await req.params;
     const data = req.body;
-    data.profile_pic = req.file.path;
-    console.log(data);
+    data.profile_pic = imagePathurl+req.file.filename;
+
+    // console.log(data);
     const selector = {where:{id: id}};
   
     let update = await User.update(data, selector).catch(error => console.log(error));
-    console.log(update);
     res.redirect(nodeAdminUrl + '/profile');
 }
 
@@ -125,7 +127,8 @@ const saveSignUpUser = async (req, res) => {
 
 const userLogout = async (req, res) => {
     req.flash('logut_message', 'Logout Success!!');
-    req.session.destroy();
+    // req.session.destroy();
+    res.clearCookie('session');
     res.redirect(nodeAdminUrl);
 }
 

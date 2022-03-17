@@ -18,5 +18,8 @@ router.get('/logout', userLogout);
 router.get('/profile', checkAuthMiddleware.checkAuth, adminProfile);
 router.post('/profile/:id', checkAuthMiddleware.checkAuth, imageUploader.upload.single('profile_pic'), adminProfileUpdate);
 // router.post('/profile/:id', adminProfileUpdate);
+router.get('display_image',(req, res)=>{
+    res.render('display-image','/uploads/1644487250278.jpg')
+});
 
 module.exports = router;

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %></title>
+    <%- include('../../admin/partials/head'); %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="/adminTemplate/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div> -->
+  <%- include('../../admin/partials/admin_top_menu'); %>
+
+  <%- include('../../admin/partials/sidebar'); %>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper pt-4">
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="col-sm-12">
+          <div class="card bg-white user-detail-wrap">
+            <div class="card-header  bg-white">
+              <% if(typeof product != 'undefined'){ %>
+                <h5 class="float-left">Edit Product</h5>
+                <% }else {%>
+                  <h5 class="float-left">Add Product</h5>
+                <% } %>
+              
+              <a class="float-right btn btn-primary text-white" href="<%= nodeAdminUrl%>/product">List</a>
+            </div>
+            <div class="card-body account-setting-wrap">
+              <div class="col-12">
+                <% if(typeof product != 'undefined'){ %>
+                <form action="/admin/product/edit/<%= product.id %>" method="post">
+                  <input type="" name="id" value="<%= product.id %>">
+                  <input type="" name="user_id" value="<%= userId %>">
+                <% }else {%>
+                  <form action="/admin/product/create" method="post">
+                <% } %>
+            
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value="<%= (typeof product != 'undefined' ? product.name : '') %>">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Price</label>
+                  <input type="text" class="form-control" id="price" placeholder="Enter Price" name="price" value="<%= (typeof product != 'undefined' ? product.price : '') %>">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Quantity</label>
+                  <input type="text" class="form-control" id="quantity" placeholder="Enter Quantity" name="quantity" value="<%= (typeof product != 'undefined' ? product.quantity : '') %>">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Short Description</label>
+                  <input type="text" class="form-control" id="short_description" placeholder="Enter Short Description" name="short_description" value="<%= (typeof product != 'undefined' ? product.short_description : '') %>">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Description</label>
+                  <textarea class="form-control" id="description" placeholder="Enter Description" name="description"><%= (typeof product != 'undefined' ? product.description : '') %></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Featured Image</label>
+                  <input type="file" class="form-control" id="featured_image"  name="featured_image" value="<%= (typeof product != 'undefined' ? product.featured_image : '') %>">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+      </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0-rc
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<%- include('../../admin/partials/footer'); %>
+
+
+</body>
+</html>

@@ -18,47 +18,41 @@
   <%- include('../../admin/partials/sidebar'); %>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">          
-            <% if(typeof category != 'undefined'){ %>
-            <h1 class="m-0">Edit Category</h1>
-            <% }else {%>
-            <h1 class="m-0">Create Category</h1>
-            <% } %>
-
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+  <div class="content-wrapper pt-4">
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <% if(typeof category != 'undefined'){ %>
-          <form action="/admin/category/edit/<%= category.id %>" method="post">
-            <input type="" name="id" value="<%= category.id %>">
-            <input type="" name="user_id" value="<%= userId %>">
-          <% }else {%>
-            <form action="/admin/category/create" method="post">
-          <% } %>
-        
-            <div class="form-group">
-              <label for="exampleInputEmail1">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value="<%= (typeof category != 'undefined' ? category.name : '') %>">
+        <div class="col-sm-12">
+          <div class="card bg-white user-detail-wrap">
+            <div class="card-header  bg-white">
+              <% if(typeof category != 'undefined'){ %>
+                <h5 class="float-left">Edit Category</h5>
+                <% }else {%>
+                  <h5 class="float-left">Add Category</h5>
+                <% } %>
+              
+              <a class="float-right btn btn-primary text-white" href="<%= nodeAdminUrl%>/category">List</a>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+            <div class="card-body account-setting-wrap">
+              <div class="col-12">
+                <% if(typeof category != 'undefined'){ %>
+                <form action="/admin/category/edit/<%= category.id %>" method="post">
+                  <input type="" name="id" value="<%= category.id %>">
+                  <input type="" name="user_id" value="<%= userId %>">
+                <% }else {%>
+                  <form action="/admin/category/create" method="post">
+                <% } %>
+            
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value="<%= (typeof category != 'undefined' ? category.name : '') %>">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+      </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

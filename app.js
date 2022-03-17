@@ -1,5 +1,5 @@
 // var http = require('http');
-
+const path = require("path");  
 // //create a server object:
 // http.createServer(function (req, res) {
 //   res.write('Hello World!'); //write a response to the client
@@ -17,7 +17,9 @@ const port = process.env.PORT || 5000;
 // parsing the incoming data
 app.use(express.urlencoded({extended:true}));
 
-app.use('uploads', express.static('uploads'));
+// app.use('uploads', express.static('uploads'));
+app.use('/uploads',express.static( path.join('uploads')));
+
 
 //serving public file
 app.use(express.static(__dirname + '/public'));
@@ -48,14 +50,17 @@ app.set('view engine', 'ejs');
 app.use(flash());
 
 global.nodeAdminUrl = 'http://localhost:5000/admin';
+global.imagePathurl = '/uploads/';
 
 const adminUserRouter = require('./src/routes/admin/UserRoutes');
 const adminDashboardRouter = require('./src/routes/admin/DashboardRoute');
 const adminCategoryRouter = require('./src/routes/admin/CategoryRoute');
+const adminProductRoute = require('./src/routes/admin/ProductRoute');
 
 app.use('/admin', adminUserRouter);
 app.use('/admin/dashboard', adminDashboardRouter);
 app.use('/admin/category', adminCategoryRouter);
+app.use('/admin/product', adminProductRoute);
 
 
 const apiUserRouter = require('./src/routes/api/UserRoute');
